@@ -10,318 +10,320 @@ TypeScript 数据类型学习笔记
 2. npm i ts-node --g （全局安装ts-node）
 3. 使用 ts-node 文件名.ts 来运行
 */
+namespace 数据类型 {
 
-// ==================== 1. 字符串类型 (String) ====================
-let userName: string = '张三' // 基本字符串
-let message: string = `你好，${userName}` // 模板字符串
-let multiLine: string = `
+  // ==================== 1. 字符串类型 (String) ====================
+  let userName: string = '张三' // 基本字符串
+  let message: string = `你好，${userName}` // 模板字符串
+  let multiLine: string = `
   这是多行
   字符串
   示例
 `
 
-console.log('字符串示例：', userName, message)
+  console.log('字符串示例：', userName, message)
 
-// ==================== 2. 数字类型 (Number) ====================
-let age: number = 25 // 整数
-let height: number = 175.5 // 浮点数
-let binary: number = 0b1010 // 二进制
-let octal: number = 0o755 // 八进制
-let hex: number = 0xff // 十六进制
+  // ==================== 2. 数字类型 (Number) ====================
+  let age: number = 25 // 整数
+  let height: number = 175.5 // 浮点数
+  let binary: number = 0b1010 // 二进制
+  let octal: number = 0o755 // 八进制
+  let hex: number = 0xff // 十六进制
 
-console.log('数字示例：', age, height, binary, octal, hex)
+  console.log('数字示例：', age, height, binary, octal, hex)
 
-// ==================== 3. 布尔类型 (Boolean) ====================
-let isStudent: boolean = true // 直接使用布尔值
-let isAdult: boolean = Boolean(18) // 通过函数转换
-let hasPermission: boolean = false
+  // ==================== 3. 布尔类型 (Boolean) ====================
+  let isStudent: boolean = true // 直接使用布尔值
+  let isAdult: boolean = Boolean(18) // 通过函数转换
+  let hasPermission: boolean = false
 
-// 注意：不要使用 new Boolean()，它会返回一个 Boolean 对象而不是布尔值
-// let wrongWay: boolean = new Boolean(1) // 错误！
+  // 注意：不要使用 new Boolean()，它会返回一个 Boolean 对象而不是布尔值
+  // let wrongWay: boolean = new Boolean(1) // 错误！
 
-console.log('布尔值示例：', isStudent, isAdult, hasPermission)
+  console.log('布尔值示例：', isStudent, isAdult, hasPermission)
 
-// ==================== 4. 空值类型 (Null & Undefined) ====================
-let nullValue: null = null // 空值
-let undefinedValue: undefined = undefined // 未定义
+  // ==================== 4. 空值类型 (Null & Undefined) ====================
+  let nullValue: null = null // 空值
+  let undefinedValue: undefined = undefined // 未定义
 
-// 在严格模式下，null 和 undefined 不能赋值给其他类型
-// let name: string = null // 在严格模式下会报错
+  // 在严格模式下，null 和 undefined 不能赋值给其他类型
+  // let name: string = null // 在严格模式下会报错
 
-console.log('空值示例：', nullValue, undefinedValue)
+  console.log('空值示例：', nullValue, undefinedValue)
 
-// ==================== 5. 对象类型 (Object) ====================
-let personObj: object = {
-  name: '李四',
-  age: 30,
-  city: '北京'
-}
-
-// 更具体的对象类型定义
-let student: {
-  name: string
-  age: number
-  grade: string
-} = {
-  name: '王五',
-  age: 18,
-  grade: '高三'
-}
-
-console.log('对象示例：', personObj, student)
-
-// ==================== 6. 数组类型 (Array) ====================
-// 方式1：类型[] （推荐）
-let numbers: number[] = [1, 2, 3, 4, 5]
-let nameList: string[] = ['张三', '李四', '王五']
-let mixed: any[] = [1, 'hello', true, {name: 'test'}]
-
-// 方式2：Array<类型> （泛型语法）
-let scores: Array<number> = [85, 92, 78, 96]
-let colorList: Array<string> = ['red', 'green', 'blue']
-
-// 方式3：使用接口定义数组
-interface NumberArray {
-  [index: number]: number // 索引是数字，值也是数字
-}
-let fibonacci: NumberArray = [1, 1, 2, 3, 5, 8, 13]
-
-// 多维数组
-let matrix: number[][] = [
-  [1, 2, 3],
-  [4, 5, 6],
-  [7, 8, 9]
-]
-
-// 元组数组
-let coordinates: [number, number][] = [
-  [10, 20],
-  [30, 40],
-  [50, 60]
-]
-
-console.log('数组示例：', numbers, nameList, scores, fibonacci, matrix)
-
-// ==================== 7. 元组类型 (Tuple) ====================
-// 元组：固定长度和类型的数组
-let userInfos: [string, number, boolean] = ['张三', 25, true]
-let rgb: [number, number, number] = [255, 128, 0]
-
-// 可选元素的元组
-let optionalTuple: [string, number?] = ['hello'] // 第二个元素可选
-let optionalTuple2: [string, number?] = ['hello', 42]
-
-console.log('元组示例：', userInfos, rgb, optionalTuple, optionalTuple2)
-
-// ==================== 8. 任意类型 (Any) ====================
-// any 类型：可以赋值给任何类型，也可以接收任何类型
-let anyValue: any = 'hello'
-anyValue = 42
-anyValue = true
-anyValue = {name: 'test'}
-
-// 注意：使用 any 会失去 TypeScript 的类型检查优势
-let anyArray: any[] = [1, 'hello', true, {name: 'test'}]
-
-console.log('任意类型示例：', anyValue, anyArray)
-
-// ==================== 9. 未知类型 (Unknown) ====================
-// unknown 类型：比 any 更安全，需要类型检查后才能使用
-let unknownValue: unknown = 'hello'
-
-// unknown 类型不能直接赋值给其他类型
-// let name: string = unknownValue // 错误！
-
-// 需要类型断言或类型检查
-let name2: string = unknownValue as string // 类型断言
-if (typeof unknownValue === 'string') {
-  let name3: string = unknownValue // 类型检查后可以赋值
-}
-
-// unknown 可以赋值给 any
-let anyVar: any = unknownValue
-
-console.log('未知类型示例：', unknownValue, name2)
-
-// ==================== 10. 空类型 (Void) ====================
-// void 类型：表示函数没有返回值
-function sayHello(): void {
-  console.log('Hello!')
-}
-
-function processDataExample(): void {
-  // 处理数据但不返回任何值
-}
-
-// void 变量只能赋值 undefined
-let voidVar: void = undefined
-// let voidVar2: void = null // 错误！
-
-console.log('空类型示例：', voidVar)
-
-// ==================== 11. 永不类型 (Never) ====================
-// never 类型：表示永远不会发生的值
-function throwError(): never {
-  throw new Error('这是一个错误')
-}
-
-function infiniteLoop(): never {
-  while (true) {
-    // 无限循环
-  }
-}
-
-// 函数返回 never 的情况
-function processInput(user: string | number) {
-  if (typeof user === 'string') {
-    return user.toUpperCase()
-  } else if (typeof user === 'number') {
-    return user.toString()
-  } else {
-    // 这里 user 的类型是 never，因为前面已经处理了所有可能的情况
-    const neverValue: never = user
-    return neverValue
-  }
-}
-
-console.log('永不类型示例：', processInput('hello'), processInput(42))
-
-// ==================== 12. 符号类型 (Symbol) ====================
-// Symbol 类型：唯一的标识符
-let symbol1: symbol = Symbol('description')
-let symbol2: symbol = Symbol('description')
-console.log(symbol1 === symbol2) // false，每个 Symbol 都是唯一的
-
-// 用作对象属性
-let objWithSymbol = {
-  [symbol1]: 'symbol value',
-  normalProp: 'normal value'
-}
-
-console.log('符号类型示例：', symbol1, objWithSymbol[symbol1])
-
-// ==================== 13. 大整数类型 (BigInt) ====================
-// BigInt 类型：用于表示任意精度的整数
-let bigNumber: bigint = 123456789012345678901234567890n
-let anotherBig: bigint = BigInt('123456789012345678901234567890')
-
-// 注意：BigInt 不能与 Number 混合运算
-// let result = bigNumber + 1 // 错误！
-let bigResult = bigNumber + 1n // 正确
-
-console.log('大整数示例：', bigNumber, bigResult)
-
-// ==================== 14. 实际应用示例 ====================
-// 综合运用各种数据类型的实际例子
-
-// 用户信息接口
-interface UserInfo {
-  id: number
-  name: string
-  email: string
-  age?: number
-  isActive: boolean
-  tags: string[]
-  // metadata 属性用于存储任意结构的元数据，键为字符串，值可以是任意类型
-  metadata: Record<string, any>
-}
-
-// 创建用户数据
-const users: UserInfo[] = [
-  {
-    id: 1,
-    name: '张三',
-    email: 'zhangsan@example.com',
-    age: 25,
-    isActive: true,
-    tags: ['学生', '前端'],
-    metadata: {
-      lastLogin: new Date(),
-      preferences: {theme: 'dark', language: 'zh-CN'}
-    }
-  },
-  {
-    id: 2,
+  // ==================== 5. 对象类型 (Object) ====================
+  let personObj: object = {
     name: '李四',
-    email: 'lisi@example.com',
-    isActive: false,
-    tags: ['开发者', '后端'],
-    metadata: {
-      lastLogin: null,
-      preferences: {theme: 'light', language: 'en-US'}
+    age: 30,
+    city: '北京'
+  }
+
+  // 更具体的对象类型定义
+  let student: {
+    name: string
+    age: number
+    grade: string
+  } = {
+    name: '王五',
+    age: 18,
+    grade: '高三'
+  }
+
+  console.log('对象示例：', personObj, student)
+
+  // ==================== 6. 数组类型 (Array) ====================
+  // 方式1：类型[] （推荐）
+  let numbers: number[] = [1, 2, 3, 4, 5]
+  let nameList: string[] = ['张三', '李四', '王五']
+  let mixed: any[] = [1, 'hello', true, { name: 'test' }]
+
+  // 方式2：Array<类型> （泛型语法）
+  let scores: Array<number> = [85, 92, 78, 96]
+  let colorList: Array<string> = ['red', 'green', 'blue']
+
+  // 方式3：使用接口定义数组
+  interface NumberArray {
+    [index: number]: number // 索引是数字，值也是数字
+  }
+  let fibonacci: NumberArray = [1, 1, 2, 3, 5, 8, 13]
+
+  // 多维数组
+  let matrix: number[][] = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+  ]
+
+  // 元组数组
+  let coordinates: [number, number][] = [
+    [10, 20],
+    [30, 40],
+    [50, 60]
+  ]
+
+  console.log('数组示例：', numbers, nameList, scores, fibonacci, matrix)
+
+  // ==================== 7. 元组类型 (Tuple) ====================
+  // 元组：固定长度和类型的数组
+  let userInfos: [string, number, boolean] = ['张三', 25, true]
+  let rgb: [number, number, number] = [255, 128, 0]
+
+  // 可选元素的元组
+  let optionalTuple: [string, number?] = ['hello'] // 第二个元素可选
+  let optionalTuple2: [string, number?] = ['hello', 42]
+
+  console.log('元组示例：', userInfos, rgb, optionalTuple, optionalTuple2)
+
+  // ==================== 8. 任意类型 (Any) ====================
+  // any 类型：可以赋值给任何类型，也可以接收任何类型
+  let anyValue: any = 'hello'
+  anyValue = 42
+  anyValue = true
+  anyValue = { name: 'test' }
+
+  // 注意：使用 any 会失去 TypeScript 的类型检查优势
+  let anyArray: any[] = [1, 'hello', true, { name: 'test' }]
+
+  console.log('任意类型示例：', anyValue, anyArray)
+
+  // ==================== 9. 未知类型 (Unknown) ====================
+  // unknown 类型：比 any 更安全，需要类型检查后才能使用
+  let unknownValue: unknown = 'hello'
+
+  // unknown 类型不能直接赋值给其他类型
+  // let name: string = unknownValue // 错误！
+
+  // 需要类型断言或类型检查
+  let name2: string = unknownValue as string // 类型断言
+  if (typeof unknownValue === 'string') {
+    let name3: string = unknownValue // 类型检查后可以赋值
+  }
+
+  // unknown 可以赋值给 any
+  let anyVar: any = unknownValue
+
+  console.log('未知类型示例：', unknownValue, name2)
+
+  // ==================== 10. 空类型 (Void) ====================
+  // void 类型：表示函数没有返回值
+  function sayHello(): void {
+    console.log('Hello!')
+  }
+
+  function processDataExample(): void {
+    // 处理数据但不返回任何值
+  }
+
+  // void 变量只能赋值 undefined
+  let voidVar: void = undefined
+  // let voidVar2: void = null // 错误！
+
+  console.log('空类型示例：', voidVar)
+
+  // ==================== 11. 永不类型 (Never) ====================
+  // never 类型：表示永远不会发生的值
+  function throwError(): never {
+    throw new Error('这是一个错误')
+  }
+
+  function infiniteLoop(): never {
+    while (true) {
+      // 无限循环
     }
   }
-]
 
-// 处理用户数据
-function processUsers(userList: UserInfo[]): {
-  activeUsers: UserInfo[]
-  averageAge: number
-  tagCount: Record<string, number>
-} {
-  const activeUsers = userList.filter(user => user.isActive)
-  
-  const usersWithAge = userList.filter(user => user.age !== undefined)
-  const averageAge = usersWithAge.length > 0 
-    ? usersWithAge.reduce((sum, user) => sum + user.age!, 0) / usersWithAge.length 
-    : 0
-  
-  const tagCount: Record<string, number> = {}
-  userList.forEach(user => {
-    user.tags.forEach(tag => {
-      tagCount[tag] = (tagCount[tag] || 0) + 1
+  // 函数返回 never 的情况
+  function processInput(user: string | number) {
+    if (typeof user === 'string') {
+      return user.toUpperCase()
+    } else if (typeof user === 'number') {
+      return user.toString()
+    } else {
+      // 这里 user 的类型是 never，因为前面已经处理了所有可能的情况
+      const neverValue: never = user
+      return neverValue
+    }
+  }
+
+  console.log('永不类型示例：', processInput('hello'), processInput(42))
+
+  // ==================== 12. 符号类型 (Symbol) ====================
+  // Symbol 类型：唯一的标识符
+  let symbol1: symbol = Symbol('description')
+  let symbol2: symbol = Symbol('description')
+  console.log(symbol1 === symbol2) // false，每个 Symbol 都是唯一的
+
+  // 用作对象属性
+  let objWithSymbol = {
+    [symbol1]: 'symbol value',
+    normalProp: 'normal value'
+  }
+
+  console.log('符号类型示例：', symbol1, objWithSymbol[symbol1])
+
+  // ==================== 13. 大整数类型 (BigInt) ====================
+  // BigInt 类型：用于表示任意精度的整数
+  let bigNumber: bigint = 123456789012345678901234567890n
+  let anotherBig: bigint = BigInt('123456789012345678901234567890')
+
+  // 注意：BigInt 不能与 Number 混合运算
+  // let result = bigNumber + 1 // 错误！
+  let bigResult = bigNumber + 1n // 正确
+
+  console.log('大整数示例：', bigNumber, bigResult)
+
+  // ==================== 14. 实际应用示例 ====================
+  // 综合运用各种数据类型的实际例子
+
+  // 用户信息接口
+  interface UserInfo {
+    id: number
+    name: string
+    email: string
+    age?: number
+    isActive: boolean
+    tags: string[]
+    // metadata 属性用于存储任意结构的元数据，键为字符串，值可以是任意类型
+    metadata: Record<string, any>
+  }
+
+  // 创建用户数据
+  const users: UserInfo[] = [
+    {
+      id: 1,
+      name: '张三',
+      email: 'zhangsan@example.com',
+      age: 25,
+      isActive: true,
+      tags: ['学生', '前端'],
+      metadata: {
+        lastLogin: new Date(),
+        preferences: { theme: 'dark', language: 'zh-CN' }
+      }
+    },
+    {
+      id: 2,
+      name: '李四',
+      email: 'lisi@example.com',
+      isActive: false,
+      tags: ['开发者', '后端'],
+      metadata: {
+        lastLogin: null,
+        preferences: { theme: 'light', language: 'en-US' }
+      }
+    }
+  ]
+
+  // 处理用户数据
+  function processUsers(userList: UserInfo[]): {
+    activeUsers: UserInfo[]
+    averageAge: number
+    tagCount: Record<string, number>
+  } {
+    const activeUsers = userList.filter(user => user.isActive)
+
+    const usersWithAge = userList.filter(user => user.age !== undefined)
+    const averageAge = usersWithAge.length > 0
+      ? usersWithAge.reduce((sum, user) => sum + user.age!, 0) / usersWithAge.length
+      : 0
+
+    const tagCount: Record<string, number> = {}
+    userList.forEach(user => {
+      user.tags.forEach(tag => {
+        tagCount[tag] = (tagCount[tag] || 0) + 1
+      })
     })
-  })
+
+    return { activeUsers, averageAge, tagCount }
+  }
+
+  const userResult = processUsers(users)
+  console.log('用户处理结果：', userResult)
+
+  // ==================== 学习要点总结 ====================
+  /*
+  📚 TypeScript 数据类型学习要点：
   
-  return { activeUsers, averageAge, tagCount }
+  1. 基础数据类型
+     ✅ string: 字符串类型，支持模板字符串
+     ✅ number: 数字类型，包括整数、浮点数、二进制、八进制、十六进制
+     ✅ boolean: 布尔类型，注意不要使用 new Boolean()
+     ✅ null/undefined: 空值类型，在严格模式下有类型限制
+  
+  2. 对象类型
+     ✅ object: 通用对象类型
+     ✅ 内联对象类型: 直接定义对象结构
+     ✅ 接口定义: 使用 interface 定义对象类型
+  
+  3. 数组类型
+     ✅ 类型[]: 推荐语法
+     ✅ Array<类型>: 泛型语法
+     ✅ 接口定义数组: 使用索引签名
+     ✅ 多维数组: 数组的数组
+     ✅ 元组数组: 元组的数组
+  
+  4. 元组类型
+     ✅ 固定长度和类型的数组
+     ✅ 可选元素: 使用 ? 标记
+     ✅ 命名元组: 给元素指定名称
+  
+  5. 特殊类型
+     ✅ any: 任意类型，失去类型检查
+     ✅ unknown: 未知类型，比 any 更安全
+     ✅ void: 空类型，表示无返回值
+     ✅ never: 永不类型，表示不可能的值
+     ✅ symbol: 唯一标识符
+     ✅ bigint: 大整数类型
+  
+  6. 实际应用
+     ✅ 用户数据处理: 综合运用各种类型
+     ✅ 类型安全: 充分利用 TypeScript 的类型检查
+     ✅ 最佳实践: 避免使用 any，优先使用 unknown
+  
+  🎯 重点掌握：
+  - 理解每种类型的特点和适用场景
+  - 掌握类型安全的重要性
+  - 学会在实际项目中合理使用各种类型
+  - 理解 TypeScript 类型系统的优势
+  */
 }
-
-const userResult = processUsers(users)
-console.log('用户处理结果：', userResult)
-
-// ==================== 学习要点总结 ====================
-/*
-📚 TypeScript 数据类型学习要点：
-
-1. 基础数据类型
-   ✅ string: 字符串类型，支持模板字符串
-   ✅ number: 数字类型，包括整数、浮点数、二进制、八进制、十六进制
-   ✅ boolean: 布尔类型，注意不要使用 new Boolean()
-   ✅ null/undefined: 空值类型，在严格模式下有类型限制
-
-2. 对象类型
-   ✅ object: 通用对象类型
-   ✅ 内联对象类型: 直接定义对象结构
-   ✅ 接口定义: 使用 interface 定义对象类型
-
-3. 数组类型
-   ✅ 类型[]: 推荐语法
-   ✅ Array<类型>: 泛型语法
-   ✅ 接口定义数组: 使用索引签名
-   ✅ 多维数组: 数组的数组
-   ✅ 元组数组: 元组的数组
-
-4. 元组类型
-   ✅ 固定长度和类型的数组
-   ✅ 可选元素: 使用 ? 标记
-   ✅ 命名元组: 给元素指定名称
-
-5. 特殊类型
-   ✅ any: 任意类型，失去类型检查
-   ✅ unknown: 未知类型，比 any 更安全
-   ✅ void: 空类型，表示无返回值
-   ✅ never: 永不类型，表示不可能的值
-   ✅ symbol: 唯一标识符
-   ✅ bigint: 大整数类型
-
-6. 实际应用
-   ✅ 用户数据处理: 综合运用各种类型
-   ✅ 类型安全: 充分利用 TypeScript 的类型检查
-   ✅ 最佳实践: 避免使用 any，优先使用 unknown
-
-🎯 重点掌握：
-- 理解每种类型的特点和适用场景
-- 掌握类型安全的重要性
-- 学会在实际项目中合理使用各种类型
-- 理解 TypeScript 类型系统的优势
-*/ 
